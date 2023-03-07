@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+{% block content %}
+
+
+
+<main>
+
+    <div class="input-group input-group-lg">
+        <span class="input-group-text" id="inputGroup-sizing-lg">Que procura amigo?</span>
+        <span>Total: {{tamanho}}</span>                
+    </div> 
+    <form method="POST" action="{{ url_for('produto_busca') }}">
+        <input placeholder="Nome, preço, marca..."  type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" name="busca" id="busca" type="submit">
+    </form>
+    <table class="table table-hover" id="tabela">    
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Preco</th>
+                <th>Marca</th>
+                <th>Data adicionado</th>          
+                
+            </tr>
+        </thead>
+        <tbody id="tb_produtos">
+            {% for produto in produtos %}
+            <tr>
+                <td>{{produto.id}}</td>
+                <td>{{produto.nome}}</td>
+                <td>{{produto.preco}}</td>
+                <td>{{produto.marca}}</td>
+                <td>{{produto.added}}</td>             
+                
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a title="atualizar" class="btn btn-danger" 
+    href="#" type="submit">
+        <i class="bi bi-arrow-clockwise"></i>
+    </a> 
+</main>
+
+
+{% endblock %}
