@@ -1,0 +1,73 @@
+{% extends "layout.html" %}
+{% block content %}
+
+
+<body>
+    <main>
+
+        <div class="input-group input-group-lg">
+            <span class="input-group-text" id="inputGroup-sizing-lg">Que procura amigo?</span>        
+        </div>
+        <table class="table table-hover" id="tabela">
+        <input placeholder="Nome, preço, marca..."  type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" name="busca" id="busca">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Preco</th>
+                    <th>Marca</th>
+                    <th>Data adicionado</th>          
+                    
+                </tr>
+            </thead>
+            <tbody id="tb_produtos">
+                {% for produto in produtos %}
+                <tr>
+                    <td>{{produto.id}}</td>
+                    <td>{{produto.nome}}</td>
+                    <td>{{produto.preco}}</td>
+                    <td>{{produto.marca}}</td>
+                    <td>{{produto.added}}</td>             
+                    
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a title="atualizar" class="btn btn-danger" 
+        href="#">
+            <i class="bi bi-arrow-clockwise"></i>
+        </a> 
+    </main>
+    <script>
+
+    const BUSCA = document.getElementById('busca');
+    const TB_PRODUTOS = document.getElementById('tb_produtos');
+
+    BUSCA.addEventListener('keyup', () => {
+        let palavra = BUSCA.value.toLowerCase();
+
+        console.log(palavra);
+
+        let linhas_tb = TB_PRODUTOS.getElementsByTagName('tr');
+
+        //console.log(linhas_tb);
+        for (let posicao in linhas_tb){
+            if (true === isNaN(posicao)){
+                continue;
+            }
+            //console.log(posicao);
+            let conteudoLinha = linhas_tb[posicao].innerHTML.toLowerCase();
+            console.log(conteudoLinha);
+
+            if(true === conteudoLinha.includes(palavra)){
+                linhas_tb[posicao].style.display = '';
+            }else{
+                linhas_tb[posicao].style.display = 'none';
+            }
+        }
+
+    });
+
+    </script>
+</body>
+{% endblock %}
